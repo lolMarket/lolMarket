@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<meta charset="ISO-8859-1"/>
+<title>Product Registration</title>
+</h:head>
+<h:body>
+<f:view>
+<h:form>
+	<div>
+		${productController.message}
+	</div>
+	<div> Code 
+		<h:inputText value="#{productController.code}"	 id = "code"
+			required = "true"
+            requiredMessage = "Code is mandatory"
+            validatorMessage = "Codes must be alphanumeric">
+			<f:validateRegex pattern="[a-zA-Z0-9]+"/>
+		</h:inputText>
+		<h:message for = "code" styleClass = "error" />
+	</div>
+	<div> Name 
+		<h:inputText value="#{productController.name}"	 id = "name"
+			required = "true"
+            requiredMessage = "Name is mandatory"
+            validatorMessage = "Names must contain letters">
+			<f:validateRegex pattern="[a-z A-Z]+"/>
+		</h:inputText>
+		<h:message for = "name" styleClass = "error" />
+	</div>
+	<div> Price 
+		<h:inputText value="#{productController.price}" id = "price"
+			required = "true"
+			requiredMessage = "Price is mandatory"
+			converterMessage = "Price must be a number">
+		</h:inputText>
+		<h:message for = "price" styleClass = "error" />
+	</div>
+	<div> Quantity 
+		<h:inputText value="#{productController.quantity}"	id = "quantity"
+			required = "true"
+			requiredMessage = "Quantity is mandatory"
+			converterMessage= "Quantity must be a integer">
+		</h:inputText>
+		<h:message for = "quantity" styleClass = "error" />
+	</div>
+	<div> Description 
+		<h:inputTextarea value="#{productController.description}"
+			required="false" cols="20" rows="5" />
+	</div>
+	<div> <h:commandButton value="Register" action="#{productController.registerProduct}" /></div>
+</h:form>
+</f:view>
+</h:body>
+</html>
