@@ -42,7 +42,7 @@ public class LoginController {
 	
 	public String logout() {
 		customerSession.destroy();
-		return "Login.jsp";
+		return "Login.xhtml";
 	}
 	public void setEmail(String email) {
 		this.email = email;
