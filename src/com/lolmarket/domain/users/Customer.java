@@ -5,12 +5,14 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "lm_customer")
+@NamedQuery(name = "getCustomer", query = "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :pass")
 public class Customer {
 	@Id
 	private String email;
@@ -94,5 +96,5 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }
