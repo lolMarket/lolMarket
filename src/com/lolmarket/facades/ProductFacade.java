@@ -25,10 +25,13 @@ public class ProductFacade {
 		
 		List<Product> result =(List<Product>) query.getResultList();
 		
-		System.out.println(result.get(0).getName());
-		System.out.println(result.get(1).getName());
-		
 		return result;
+	}
+	
+	public Product retriveById(String code) {
+		Query query = entityManager.createNamedQuery("retriveById");
+		query.setParameter("code", code);
+		return (Product) query.getSingleResult();
 	}
 	
 }

@@ -7,8 +7,11 @@
 		<class>com.lolmarket.domain.Product</class>
 		<class>com.lolmarket.domain.Provider</class>
 		<class>com.lolmarket.domain.users.Admin</class>
+		<class>com.lolmarket.domain.Order</class>
+		<class>com.lolmarket.domain.OrderLine</class>
 		<properties>
 			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=add, ForeignKeys=true)"/>
+			<property name="openjpa.jdbc.MappingDefaults" value="ForeignKeyDeleteAction=restrict,JoinForeignKeyDeleteAction=restrict"/>
 		</properties>
 	</persistence-unit>
 </persistence>

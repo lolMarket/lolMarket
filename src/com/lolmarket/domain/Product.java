@@ -3,12 +3,16 @@ package com.lolmarket.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "lm_product")
-@NamedQuery(name = "retrieveAllProducts", query = "SELECT p FROM Product p")
+@NamedQueries({
+	@NamedQuery(name = "retrieveAllProducts", query = "SELECT p FROM Product p"),
+	@NamedQuery(name = "retriveById", query = "SELECT p FROM Product p WHERE p.code = :code")
+})
 public class Product {
 	
 	@Id
@@ -32,6 +36,31 @@ public class Product {
 	public Product(String code, String name) {
 		this.code = code;
 		this.name = name;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
+			return false;
+		return true;
 	}
 
 	public String getCode() {
