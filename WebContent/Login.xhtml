@@ -15,7 +15,7 @@
 		<br />
 	</div>
 <h:form>
-	<div> Email
+	<div> Email 
 		<h:inputText value="#{loginController.email}"	id = "email"
 			required = "true"
 			requiredMessage = "Email is mandatory"
@@ -31,6 +31,7 @@
 		<h:message for = "password" styleClass = "error" />
 	</div>
 	<hr />
+	<h:selectBooleanCheckbox value="#{loginController.isAdmin}" /> I'm an admin
 	<h:commandButton value="Login" action="#{loginController.login}" />
 </h:form> 		
 </f:view>

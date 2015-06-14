@@ -5,8 +5,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import com.lolmarket.domain.users.Admin;
 import com.lolmarket.domain.users.Customer;
+import com.lolmarket.facades.AdminFacade;
 import com.lolmarket.facades.CustomerFacade;
+import com.lolmarket.sessions.AdminSession;
 import com.lolmarket.sessions.CustomerSession;
 
 @ManagedBean(name = "loginController")
@@ -15,35 +18,64 @@ public class LoginController {
 
 	private String errorDescription = "";
 	
+	private final String LOGIN_PAGE_URL = "Login.xhtml";
+	private final String WRONG_CREDENTIALS = "Wrong email or password";
+	
 	@EJB
 	private CustomerFacade customerFacade;
+	
+	@EJB
+	private AdminFacade adminFacade;
+	
+	@ManagedProperty ("#{admin}")
+	private AdminSession adminSession;
 	
 	@ManagedProperty ("#{customer}")
 	private CustomerSession customerSession;
 	
 	private String email;
 	private String password;
+	private boolean isAdmin;
 	
 	public LoginController() {}
 	
 	public String login() {
-		String nextPage = "CustomerHome.xhtml";
 		
-		try {
-			Customer customer = customerFacade.getCustomer(email, password);
-			customerSession.setCurrent(customer);
-		} catch (Exception e) {
-			this.errorDescription = "Wrong email or password";
-			nextPage = "";
+		String nextPage = "";
+		
+		if(this.isAdmin) {
+			try {
+				Admin admin = adminFacade.getAdmin(email, password);
+				adminSession.setCurrent(admin);
+				nextPage = "AdminHome.xhtml";
+			} catch (Exception e) {
+				this.errorDescription = WRONG_CREDENTIALS;
+				nextPage = LOGIN_PAGE_URL;
+			}
+		} else {
+			try {
+				Customer customer = customerFacade.getCustomer(email, password);
+				customerSession.setCurrent(customer);
+				nextPage = "CustomerHome.xhtml";
+			} catch (Exception e) {
+				this.errorDescription = WRONG_CREDENTIALS;
+				nextPage = LOGIN_PAGE_URL;
+			}
 		}
 		
 		return nextPage;
 	}
 	
-	public String logout() {
+	public String customerLogout() {
 		customerSession.destroy();
-		return "Login.xhtml";
+		return LOGIN_PAGE_URL;
 	}
+	
+	public String adminLogout() {
+		adminSession.destroy();
+		return LOGIN_PAGE_URL;
+	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -52,8 +84,12 @@ public class LoginController {
 		this.password = password;
 	}
 
-	public void setUserFacade(CustomerFacade userFacade) {
-		this.customerFacade = userFacade;
+	public void setCustomerFacade(CustomerFacade customerFacade) {
+		this.customerFacade = customerFacade;
+	}
+	
+	public void setAdminFacade(AdminFacade adminFacade) {
+		this.adminFacade = adminFacade;
 	}
 
 	public String getPassword() {
@@ -64,6 +100,14 @@ public class LoginController {
 		return this.email;
 	}
 	
+	public boolean getIsAdmin() {
+		return this.isAdmin;
+	}
+	
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
 	public String getErrorDescription() {
 		return this.errorDescription;
 	}
@@ -71,5 +115,10 @@ public class LoginController {
 	public void setCustomerSession(CustomerSession session) {
 		this.customerSession = session;
 	}
+	
+	public void setAdminSession(AdminSession session) {
+		this.adminSession = session;
+	}
+	
 }
  
