@@ -5,6 +5,8 @@
 		<jta-data-source>lolMarketDataSource</jta-data-source>
 		<class>com.lolmarket.domain.users.Customer</class>
 		<class>com.lolmarket.domain.Product</class>
+		<class>com.lolmarket.domain.Provider</class>
+		<class>com.lolmarket.domain.users.Admin</class>
 		<properties>
 			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=add, ForeignKeys=true)"/>
 		</properties>
