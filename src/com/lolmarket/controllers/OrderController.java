@@ -26,8 +26,12 @@ public class OrderController {
 	}
 	
 	public String viewOrder(Long orderId) {
-		return "ViewOrder.xhtml?faces-redirect=true&id=" + orderId.toString();
+		return "OrderDetails.xhtml?faces-redirect=true&id=" + orderId.toString();
 		
+	}
+	
+	public Order getOrderById(Long id) {
+		return this.customerSession.getCurrent().getOrderById(id);
 	}
 	
 	public void setCustomerSession(CustomerSession session) {
