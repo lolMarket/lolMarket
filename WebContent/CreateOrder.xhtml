@@ -11,6 +11,8 @@
 <c:if test="${customer.current ne null}"> 
 	<h1>Create order</h1>
 	<h:form>
+		<a href="CustomerHome.xhtml">Home</a>
+		<br/>
 		<h:commandLink value="create new"  action="#{createOrderController.createNewOrder}" /> <br/>
 		<h:commandLink value="close order" rendered = "#{createOrderController.order ne null}" action="#{createOrderController.closeOrder}" /> <br/>
 		<h:commandLink value="save order"  rendered = "#{createOrderController.order ne null}" action="#{createOrderController.saveOrder}" /> <br/>
