@@ -10,7 +10,8 @@
 	<c:if test="${admin.current ne null}">
 		Welcome ${admin.current.email}
 		<h:form>
-			<h:commandLink action="#{loginController.adminLogout}">logout</h:commandLink>
+			<h:commandLink action="#{loginController.adminLogout}">Logout</h:commandLink> <br />
+			<a href="AdminOrders.xhtml">Orders to be processed</a>
 		</h:form>
 	</c:if>
 </f:view>

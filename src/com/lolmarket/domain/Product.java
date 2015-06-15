@@ -86,7 +86,12 @@ public class Product {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
+	
+	public void reduceQuantity(int quantity) {
+		if(this.quantity >= quantity)
+			this.quantity -= quantity;
+	}
+	
 	public String getDescription() {
 		return description;
 	}

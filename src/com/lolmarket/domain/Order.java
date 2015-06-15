@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +23,7 @@ import com.lolmarket.domain.users.Customer;
 
 @Entity
 @Table(name = "lm_order")
+@NamedQuery(name = "retrieveOrdersToProcess", query = "SELECT o FROM Order o WHERE o.closingDate IS NOT NULL AND o.evasionDate is NULL")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,6 +61,37 @@ public class Order {
 		this.total = 0.0f;
 		this.customer = customer;
 		this.customer.addOrder(this);
+	}
+	
+	public boolean process() {
+		/*
+		 * try a dry run first, and only
+		 * if all is ok perform the real one so
+		 * the order is process entirely.
+		 * 
+		 * WARNING:
+		 * this simple code may lead to a race condition.
+		 * If the dry run for a order X succeed and, *before* the real one starts, 
+		 * another order is processed from another request and the quantity is reduced 
+		 * such that the order X can't be totally processed anymore, the real doProcess 
+		 * continue and partially confirm the order leading to an inconsistent state.
+		 * I'm not sure about that since the transactional nature of ejb can avoid 
+		 * such situations.
+		 */
+		if(doProcess(true) && doProcess(false)) {
+			this.evasionDate = Calendar.getInstance().getTime();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean doProcess(Boolean dryRun) {
+		for(OrderLine ol: this.orderLines) {
+			if(ol.process(dryRun) == false)
+				return false;
+		}
+		return true;
 	}
 	
 	public void addProductUnit(Product p) {
@@ -131,6 +164,10 @@ public class Order {
 	
 	public Long getId() {
 		return this.id;
+	}
+	
+	public Customer getCustomer() {
+		return this.customer;
 	}
 	
 }

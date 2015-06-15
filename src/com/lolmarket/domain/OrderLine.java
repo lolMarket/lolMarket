@@ -51,6 +51,17 @@ public class OrderLine {
 			
 	}
 	
+	public boolean process(Boolean dryRun) {
+		if(product.getQuantity() < this.quantity) {
+			return false;
+		} else {
+			if(! dryRun) {
+				product.reduceQuantity(quantity);
+			}
+		}
+		return true;
+	}
+	
 	public Integer getQuantity() {
 		return quantity;
 	}

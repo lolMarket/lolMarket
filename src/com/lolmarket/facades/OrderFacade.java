@@ -1,8 +1,11 @@
 package com.lolmarket.facades;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.lolmarket.domain.Order;
 import com.lolmarket.domain.users.Customer;
@@ -27,4 +30,9 @@ public class OrderFacade {
 		this.entityManager.merge(order);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Order> retrieveOrdersToProcess() {
+		Query query = this.entityManager.createNamedQuery("retrieveOrdersToProcess");
+		return query.getResultList();
+	}
 }
