@@ -28,7 +28,7 @@ public class ProductFacade {
 		return result;
 	}
 	
-	public Product retriveById(String code) {
+	public Product retrieveById(String code) {
 		Query query = entityManager.createNamedQuery("retriveById");
 		query.setParameter("code", code);
 		return (Product) query.getSingleResult();

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +46,7 @@ public class Order {
 	@Column (nullable = false)
 	private Float total;
 	
-	@OneToMany (mappedBy = "order", cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<OrderLine> orderLines;
 	
 	public Order() {
@@ -57,6 +58,7 @@ public class Order {
 		this.openingDate = Calendar.getInstance().getTime();
 		this.total = 0.0f;
 		this.customer = customer;
+		this.customer.addOrder(this);
 	}
 	
 	public void addProductUnit(Product p) {
@@ -104,7 +106,7 @@ public class Order {
 	
 	private OrderLine getOrderLineByProduct(Product p) {
 		for(OrderLine o: this.orderLines) {
-			if(o.getProduct().equals(p))
+			if(o != null && o.getProduct().equals(p))
 				return o;
 		}
 		return null;
@@ -112,9 +114,23 @@ public class Order {
 
 	private void removeOrderLine(OrderLine orderLine) {
 		this.orderLines.remove(orderLine);
+		this.total -= orderLine.getPrice();
 	}
 	
 	public Float getTotal() {
 		return this.total;
 	}
+	
+	public Date getOpeningDate() {
+		return this.openingDate;
+	}
+	
+	public Date getClosingDate() {
+		return this.closingDate;
+	}
+	
+	public Long getId() {
+		return this.id;
+	}
+	
 }

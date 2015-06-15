@@ -11,9 +11,9 @@
 <c:if test="${customer.current ne null}"> 
 	<h1>Create order</h1>
 	<h:form>
-		<h:commandLink value="close order" action="#{orderController.closeOrder}" />
-		<br />
-		<h:commandLink value="save order"  action="#{orderController.saveOrder}" />
+		<h:commandLink value="create new"  action="#{createOrderController.createNewOrder}" /> <br/>
+		<h:commandLink value="close order" rendered = "#{createOrderController.order ne null}" action="#{createOrderController.closeOrder}" /> <br/>
+		<h:commandLink value="save order"  rendered = "#{createOrderController.order ne null}" action="#{createOrderController.saveOrder}" /> <br/>
 	</h:form>
 	<div style="display: inline-block; vertical-align: top">	
 		<h2> Catalog </h2>
@@ -48,16 +48,16 @@
 					<h:outputText value="Action"/>
 				</f:facet>
 				<h:form>
-					<h:commandButton value="+" action="#{orderController.addProductUnit(product.code)}" />
-					<h:commandButton value="-" action="#{orderController.removeProductUnit(product.code)}" />
+					<h:commandButton value="+" disabled="#{createOrderController.order eq null}" action="#{createOrderController.addProductUnit(product.code)}" />
+					<h:commandButton value="-" disabled="#{createOrderController.order eq null}" action="#{createOrderController.removeProductUnit(product.code)}" />
 				</h:form>
 			</h:column>
 		</h:dataTable>
 	</div>
 	<div style="display:inline-block; vertical-align: top; margin-left: 5%">
 	<h2>Actual Order</h2>
-	<h3>Total: ${orderController.order.total} €</h3>
-	<h:dataTable value="${orderController.order.orderLines}" var="orderLine">
+	<h3>Total: ${createOrderController.order.total} €</h3>
+	<h:dataTable value="${createOrderController.order.orderLines}" var="orderLine">
 		<h:column>
 			<f:facet name="header">
 				<h:outputText value = "Product" />

@@ -1,14 +1,21 @@
 package com.lolmarket.domain.users;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.lolmarket.domain.Order;
 
 @Entity
 @Table(name = "lm_customer")
@@ -37,14 +44,30 @@ public class Customer {
 	@Column(nullable = false)
 	private String password;
 	
+	@OneToMany (mappedBy="customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Order> orders;
+	
 	public Customer() {}
 	
 	public Customer(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+	
+		this.orders = new ArrayList<Order>();
 	}
-
+	
+	public void addOrder(Order o) {
+		this.orders.add(o);
+	}
+	
+	public Order getOrderById(Long id) {
+		for(Order o: this.orders)
+			if(o.getId().equals(id))
+				return o;
+		return null;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -55,6 +78,10 @@ public class Customer {
 
 	public String getFirstName() {
 		return firstName;
+	}
+	
+	public List<Order> getOrders() {
+		return this.orders;
 	}
 
 	public void setFirstName(String firstName) {
