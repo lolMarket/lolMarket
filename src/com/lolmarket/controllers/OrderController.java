@@ -3,9 +3,12 @@ package com.lolmarket.controllers;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.lolmarket.domain.Order;
 import com.lolmarket.facades.OrderFacade;
@@ -15,8 +18,8 @@ import com.lolmarket.sessions.CustomerSession;
 @RequestScoped
 public class OrderController {
 	
-	private String errorDescription;
-	
+	private final String ERROR_PROCESS = "This order can't be processed";
+			
 	@ManagedProperty ("#{customer}")
 	private CustomerSession customerSession;
 	
@@ -44,7 +47,7 @@ public class OrderController {
 	
 	public String processOrder(Order order) {
 		if(! order.process()) {
-			this.errorDescription = "This order can't be processed";
+			this.sendMessage(FacesMessage.SEVERITY_ERROR, "orderController", ERROR_PROCESS);
 		} else {
 			orderFacade.mergeOrder(order);
 		}
@@ -72,7 +75,7 @@ public class OrderController {
 		this.orderFacade = orderFacade;
 	}
 	
-	public String getErrorDescription() {
-		return this.errorDescription;
+	public void sendMessage(Severity severity, String id, String message) {
+		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(severity, message, ""));
 	}
 }

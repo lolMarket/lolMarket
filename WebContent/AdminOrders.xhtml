@@ -10,10 +10,9 @@
 <f:view>
  <c:if test="${admin.current ne null}"> 
 
-	<h1>Orders to be processed</h1>
-	<div style="display: inline-block; vertical-align: top">	
-		<h3><h:outputText value="${orderController.errorDescription}"/></h3>
-		<h:dataTable value="${orderController.ordersToProcess}" var="order">
+	<ui:include src="adminNavbar.xhtml"/>
+	<h:messages styleClass="alert" errorClass="alert alert-danger"/>
+		<h:dataTable value="${orderController.ordersToProcess}" var="order" styleClass="table table-striped table-bordered">
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="ID"/>
@@ -53,12 +52,11 @@
 					<h:outputText value="Action"/>
 				</f:facet>
 				<h:form>
-					 <h:commandButton value="process"
+					 <h:commandButton styleClass="btn btn-xs btn-info" value="process"
 							action="#{orderController.processOrder(order)}"/>
 				</h:form>
 			</h:column>
 		</h:dataTable>
-	</div>
 </c:if>
 </f:view>
 </h:body>
