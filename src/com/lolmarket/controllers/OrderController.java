@@ -19,6 +19,7 @@ import com.lolmarket.sessions.CustomerSession;
 public class OrderController {
 	
 	private final String ERROR_PROCESS = "This order can't be processed";
+	private final String PROCESS_COMPLETE = "Order Processed";
 			
 	@ManagedProperty ("#{customer}")
 	private CustomerSession customerSession;
@@ -43,13 +44,13 @@ public class OrderController {
 		return "OrderDetails.xhtml" + "?faces-redirect=true&id=" + orderId.toString();
 		
 	}
-	
-	
+		
 	public String processOrder(Order order) {
 		if(! order.process()) {
 			this.sendMessage(FacesMessage.SEVERITY_ERROR, "orderController", ERROR_PROCESS);
 		} else {
 			orderFacade.mergeOrder(order);
+			this.sendMessage(FacesMessage.SEVERITY_INFO, "orderController", PROCESS_COMPLETE);
 		}
 		return "";
 	}

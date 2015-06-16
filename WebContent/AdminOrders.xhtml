@@ -11,7 +11,7 @@
  <c:if test="${admin.current ne null}"> 
 
 	<ui:include src="adminNavbar.xhtml"/>
-	<h:messages styleClass="alert" errorClass="alert alert-danger"/>
+	<h:messages styleClass="alert" errorClass="alert alert-danger" infoClass="alert alert-info"/>
 		<h:dataTable value="${orderController.ordersToProcess}" var="order" styleClass="table table-striped table-bordered">
 			<h:column>
 				<f:facet name="header">
