@@ -4,8 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.lolmarket.domain.users.Customer;
 import com.lolmarket.facades.CustomerFacade;
@@ -15,8 +18,7 @@ import com.lolmarket.facades.CustomerFacade;
 public class RegistrationController {
 
 	private final String ERROR_CUSTOMER_EXISTS = "The email provided is already registered";
-	
-	private String errorDescription = "";
+	private final String REGISTRATION_COMPLETE = "Registration complete, please login";
 	
 	@EJB
 	private CustomerFacade customerFacade;
@@ -31,8 +33,6 @@ public class RegistrationController {
 	public RegistrationController() {}
 	
 	public String registerCustomer() {
-		String nextPage = "RegistrationComplete.jsp";
-		
 		Customer customer = new Customer(this.firstName, this.lastName, this.email);
 		customer.setBirthDate(this.birthDate);
 		customer.setAddress(this.address);
@@ -41,12 +41,11 @@ public class RegistrationController {
 
 		try {
 			customerFacade.registerCustomer(customer);
+			this.sendMessage(FacesMessage.SEVERITY_INFO, "registrationController", REGISTRATION_COMPLETE);
 		} catch (Exception e) {
-			this.errorDescription = ERROR_CUSTOMER_EXISTS;
-			nextPage = "";
+			this.sendMessage(FacesMessage.SEVERITY_ERROR, "registrationController", ERROR_CUSTOMER_EXISTS);
 		}
-		
-		return nextPage;
+		return "";
 	}
 	
 	public String getFirstName() {
@@ -101,8 +100,8 @@ public class RegistrationController {
 		return this.email;
 	}
 	
-	public String getErrorDescription() {
-		return this.errorDescription;
+	public void sendMessage(Severity severity, String id, String message) {
+		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(severity, message, ""));
 	}
 }
  
