@@ -12,10 +12,6 @@
 
 	<ui:include src="customerNavbar.xhtml" />
 	
-	<div class="page-header">
-		<h1>Orders</h1>
-	</div>
-	
     <h:dataTable value="${customer.current.orders}" var="order" styleClass="table table-striped table-bordered">
 		<h:column>
 			<f:facet name="header">
