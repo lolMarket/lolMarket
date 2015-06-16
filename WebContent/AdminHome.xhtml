@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:h="http://java.sun.com/jsf/html" 
 	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:c="http://java.sun.com/jsp/jstl/core">
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Admin Home</title>
 </h:head>
 <h:body>
 <f:view>
 	<c:if test="${admin.current ne null}">
-		Welcome ${admin.current.email}
-
-		<ul>
-			<li><a href="ProductRegistration.xhtml">Insert a new product</a></li>
-			<li><a href="ProviderRegistration.xhtml">Register a new provider</a></li>
-			<li><a href="AdminOrders.xhtml">Orders to be processed</a></li>
-			<li>
-				<h:form>
-					<h:commandLink action="#{loginController.adminLogout}">logout</h:commandLink>
-				</h:form>
-			</li>
-		</ul>
+		<ui:include src="adminNavbar.xhtml" />
 	</c:if>
 </f:view>
 </h:body>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />	
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
+	
+	<script>
+		$(document).ready(function() {
+			
+				/*
+				 * Set the 'active' based on the URL
+				 */
+				active = $('a[href="'+this.location.pathname.replace(/^.*[\\\/]/, '')+'"]');
+				console.log(active);
+				active.parent().addClass('active');
+		});
+	</script>
+</h:head>
+<h:body style="padding-top: 50px">
+<c:if test="${admin.current ne null}"> 
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <h:form>
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="AdminHome.xhtml">lolMarket - ${admin.current.email}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="ProductRegistration.xhtml">New Product</a></li>
+            <li><a href="ProviderRegistration.xhtml">New Provider</a></li>
+            <li><a href="AdminOrders.xhtml">Process Orders</a></li>
+            <li><h:commandLink action="#{loginController.adminLogout}" value="Logout"/></li>
+          </ul>
+        </div>
+      </div>
+      </h:form>
+    </nav>
+  </c:if>
+</h:body>
+</html>
