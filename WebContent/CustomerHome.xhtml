@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:h="http://java.sun.com/jsf/html" 
 	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:c="http://java.sun.com/jsp/jstl/core">
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Customer Home</title>
 </h:head>
 <h:body>
 <f:view>
 	<c:if test="${customer.current ne null}">
-		Welcome ${customer.current.email}
-		<h:form>
-			<h:commandLink action="#{loginController.customerLogout}">logout</h:commandLink>
-		</h:form>
-		<a href = "CreateOrder.xhtml">create a new order</a><br />
-		<a href = "CustomerOrders.xhtml">view orders</a>
+		<ui:include src="customerNavbar.xhtml" />
 	</c:if>
 </f:view>
 </h:body>

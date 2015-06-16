@@ -5,22 +5,25 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Create Order</title>
+	<style type="text/css">
+		.box {
+			margin: 5px;
+		}
+	</style>
 </h:head>
 <h:body>
 <f:view>
 <c:if test="${customer.current ne null}"> 
-	<h1>Create order</h1>
+	<ui:include src="customerNavbar.xhtml"/>
+	
 	<h:form>
-		<a href="CustomerHome.xhtml">Home</a>
-		<br/>
-		<h:commandLink value="create new"  action="#{createOrderController.createNewOrder}" /> <br/>
-		<h:commandLink value="close order" rendered = "#{createOrderController.order ne null}" action="#{createOrderController.closeOrder}" /> <br/>
-		<h:commandLink value="save order"  rendered = "#{createOrderController.order ne null}" action="#{createOrderController.saveOrder}" /> <br/>
+		<h:commandButton value="new"  action="#{createOrderController.createNewOrder}" styleClass="box btn btn-primary" /> 
+		<h:commandButton value="save"  rendered = "#{createOrderController.order ne null}"  action="#{createOrderController.saveOrder}" styleClass="box btn btn-success" /> 
+		<h:commandButton value="close" rendered = "#{createOrderController.order ne null}" action="#{createOrderController.closeOrder}" styleClass="box btn btn-danger"/>
 	</h:form>
 	<div style="display: inline-block; vertical-align: top">	
 		<h2> Catalog </h2>
-		<h3> choose a product and perform an action</h3>
-		<h:dataTable value="${productController.productCatalog}" var="product">
+		<h:dataTable value="${productController.productCatalog}" var="product" styleClass="table table-striped table-bordered">
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Code"/>
@@ -50,8 +53,8 @@
 					<h:outputText value="Action"/>
 				</f:facet>
 				<h:form>
-					<h:commandButton value="+" disabled="#{createOrderController.order eq null}" action="#{createOrderController.addProductUnit(product.code)}" />
-					<h:commandButton value="-" disabled="#{createOrderController.order eq null}" action="#{createOrderController.removeProductUnit(product.code)}" />
+					<h:commandButton value="+" disabled="#{createOrderController.order eq null}" action="#{createOrderController.addProductUnit(product.code)}" styleClass="box btn btn-xs btn-default"/>
+					<h:commandButton value="-" disabled="#{createOrderController.order eq null}" action="#{createOrderController.removeProductUnit(product.code)}" styleClass="box btn btn-xs btn-default" />
 				</h:form>
 			</h:column>
 		</h:dataTable>
@@ -59,7 +62,7 @@
 	<div style="display:inline-block; vertical-align: top; margin-left: 5%">
 	<h2>Actual Order</h2>
 	<h3>Total: ${createOrderController.order.total} €</h3>
-	<h:dataTable value="${createOrderController.order.orderLines}" var="orderLine">
+	<h:dataTable value="${createOrderController.order.orderLines}" var="orderLine" styleClass="table table-striped table-bordered">
 		<h:column>
 			<f:facet name="header">
 				<h:outputText value = "Product" />
@@ -80,7 +83,9 @@
 		</h:column>
 	</h:dataTable>
 	</div>
-</c:if> 
+</c:if>
+
+	
 </f:view>
 </h:body>
 </html>

@@ -10,53 +10,58 @@
 <f:view>
 <c:if test="${customer.current ne null}"> 
 
-	<h1>Orders</h1>
-
-	<div style="display: inline-block; vertical-align: top">	
-		<h3> open orders </h3>
-		<h:dataTable value="${customer.current.orders}" var="order">
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="ID"/>
-				</f:facet>
-				<h:outputText value="${order.id}"/>
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Opening Date"/>
-				</f:facet>
-				<h:outputText value="${order.openingDate}">
-					<f:convertDateTime  pattern="dd/MM/yyyy"/>
-				</h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Closing Date" />
-				</f:facet>
-				<h:outputText value="${order.closingDate}">
-					<f:convertDateTime  pattern="dd/MM/yyyy"/>
-				</h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Total"/>
-				</f:facet>
-				<h:outputText value="${order.total} €"/>
-			</h:column>
-				<h:column>
-				<f:facet name="header">
-					<h:outputText value="Action"/>
-				</f:facet>
-				<h:form>
-					<h:commandButton value="continue" rendered="#{not order.isClose()}" 
-							action="#{orderController.continueOrder(order.id)}"/>
-					<h:commandButton value="view" 	rendered="#{order.isClose()}" 
-							action="#{orderController.viewOrder(order.id)}"/>
-				</h:form>
-			</h:column>
-		</h:dataTable>
+	<ui:include src="customerNavbar.xhtml" />
+	
+	<div class="page-header">
+		<h1>Orders</h1>
 	</div>
-
+	
+    <h:dataTable value="${customer.current.orders}" var="order" styleClass="table table-striped table-bordered">
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="ID"/>
+			</f:facet>
+			<h:outputText value="${order.id}"/>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Opening Date"/>
+			</f:facet>
+			<h:outputText value="${order.openingDate}">
+				<f:convertDateTime  pattern="dd/MM/yyyy"/>
+			</h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Closing Date" />
+			</f:facet>
+			<h:outputText value="${order.closingDate}">
+				<f:convertDateTime  pattern="dd/MM/yyyy"/>
+			</h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="Total"/>
+			</f:facet>
+			<h:outputText value="${order.total} €"/>
+		</h:column>
+			<h:column>
+			<f:facet name="header">
+				<h:outputText value="Action"/>
+			</f:facet>
+			<h:form>
+				<h:commandButton value="continue" rendered="#{not order.isClose()}" 
+						action="#{orderController.continueOrder(order.id)}"
+						styleClass="btn btn-sm btn-primary"
+						/>
+				<h:commandButton value="view" 	rendered="#{order.isClose()}" 
+						action="#{orderController.viewOrder(order.id)}"
+						styleClass="btn btn-sm btn-info"
+						/>
+			</h:form>
+		</h:column>
+	</h:dataTable>
+	
 </c:if> 
 </f:view>
 </h:body>

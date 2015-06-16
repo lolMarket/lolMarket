@@ -9,14 +9,15 @@
 <h:body>
 <f:view>
 <c:if test="${customer.current ne null}"> 
-	<h1>Order Details</h1>
-	<h:form>
-		<a href="CustomerHome.xhtml">Home</a>
-	</h:form>
+	<ui:include src="customerNavbar.xhtml"/>
 	
-	<div style="display:inline-block; vertical-align: top; margin-left: 5%">
-	<h3>Total:${orderController.getOrderById(param.id).total}€</h3>
-	<h:dataTable value="${orderController.getOrderById(param.id).orderLines}" var="orderLine">
+	<div style="page-header">
+		<h1> Order #${param.id} details</h1>
+	</div>
+		
+	<h2>Total: ${orderController.getOrderById(param.id).total} €</h2>
+	
+	<h:dataTable value="${orderController.getOrderById(param.id).orderLines}" var="orderLine" styleClass="table table-striped table-bordered">
 		<h:column>
 			<f:facet name="header">
 				<h:outputText value = "Product" />
@@ -31,12 +32,11 @@
 		</h:column>
 		<h:column>
 			<f:facet name="header">
-				<h:outputText value = "Price" />
+				<h:outputText value = "Subtotal" />
 			</f:facet>
 			<h:outputText value="${orderLine.price} €" />
 		</h:column>
 	</h:dataTable>
-	</div>
 </c:if> 
 </f:view>
 </h:body>

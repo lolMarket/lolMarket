@@ -33,11 +33,11 @@ public class OrderController {
 	public String continueOrder(Long orderId) {
 		Order o = customerSession.getCurrent().getOrderById(orderId);
 		createOrderController.setOrder(o);
-		return "CreateOrder.xhtml";
+		return "CreateOrder.xhtml" + "?faces-redirect=true";
 	}
 	
 	public String viewOrder(Long orderId) {
-		return "OrderDetails.xhtml?faces-redirect=true&id=" + orderId.toString();
+		return "OrderDetails.xhtml" + "?faces-redirect=true&id=" + orderId.toString();
 		
 	}
 	

@@ -50,7 +50,8 @@ public class CreateOrderController {
 	public String closeOrder() {
 		this.order.close();
 		this.saveOrder();
-		return "CustomerHome.xhtml";
+		this.order = null;
+		return "CustomerHome.xhtml?faces-redirect=true";
 	}
 	
 	public String saveOrder() {

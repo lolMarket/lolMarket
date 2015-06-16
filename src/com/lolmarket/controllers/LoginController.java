@@ -47,7 +47,7 @@ public class LoginController {
 			try {
 				Admin admin = adminFacade.getAdmin(email, password);
 				adminSession.setCurrent(admin);
-				nextPage = "AdminHome.xhtml";
+				nextPage = "AdminHome.xhtml"+"?faces-redirect=true";
 			} catch (Exception e) {
 				this.errorDescription = WRONG_CREDENTIALS;
 				nextPage = LOGIN_PAGE_URL;
@@ -56,7 +56,7 @@ public class LoginController {
 			try {
 				Customer customer = customerFacade.getCustomer(email, password);
 				customerSession.setCurrent(customer);
-				nextPage = "CustomerHome.xhtml";
+				nextPage = "CustomerHome.xhtml"+"?faces-redirect=true";
 			} catch (Exception e) {
 				this.errorDescription = WRONG_CREDENTIALS;
 				nextPage = LOGIN_PAGE_URL;
