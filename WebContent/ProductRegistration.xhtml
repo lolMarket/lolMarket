@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
-<meta charset="ISO-8859-1"/>
-<title>Product Registration</title>
+	<meta charset="ISO-8859-1"/>
+	<title>Product Registration</title>
+	<style type="text/css">
+		.box {
+			margin: 5px;
+		}
+	</style>
 </h:head>
 <h:body>
 <f:view>
 <c:if test="${admin.current ne null}">
-<h:form>
-	<div>
-		${productController.message}
-	</div>
-	<div> Code 
-		<h:inputText value="#{productController.code}"	 id = "code"
+<ui:include src="adminNavbar.xhtml"/>
+
+	<h:form>
+	<h:messages styleClass="alert" infoClass="alert alert-info" errorClass="alert alert-danger" />
+	<div class="box input-group">
+  		<span class="input-group-addon" id="basic-addon1">Code</span>
+		<h:inputText styleClass="form-control" value="#{productController.code}"	 id = "code"
 			required = "true"
             requiredMessage = "Code is mandatory"
             validatorMessage = "Codes must be alphanumeric">
-			<f:validateRegex pattern="[a-zA-Z0-9]+"/>
+			<f:validateRegex pattern="[a-zA-Z0-9]+" />
 		</h:inputText>
-		<h:message for = "code" styleClass = "error" />
 	</div>
-	<div> Name 
-		<h:inputText value="#{productController.name}"	 id = "name"
-			required = "true"
+	<div class="box input-group">
+  		<span class="input-group-addon" id="basic-addon1">Name</span>
+		<h:inputText styleClass="form-control" value="#{productController.name}" id = "name" required = "true"
             requiredMessage = "Name is mandatory"
-            validatorMessage = "Names must contain letters">
-			<f:validateRegex pattern="[a-z A-Z]+"/>
+            validatorMessage = "Names must contain letters" >
+				<f:validateRegex pattern="[a-z A-Z]+"/>
 		</h:inputText>
-		<h:message for = "name" styleClass = "error" />
 	</div>
-	<div> Price 
-		<h:inputText value="#{productController.price}" id = "price"
-			required = "true"
+	<div class="box input-group">
+  		<span class="input-group-addon" id="basic-addon1">Price</span>
+		<h:inputText styleClass="form-control" value="#{productController.price}" id = "price"	required = "true"
 			requiredMessage = "Price is mandatory"
 			converterMessage = "Price must be a number">
 		</h:inputText>
-		<h:message for = "price" styleClass = "error" />
 	</div>
-	<div> Quantity 
-		<h:inputText value="#{productController.quantity}"	id = "quantity"
+	<div class="box input-group">
+  		<span class="input-group-addon" id="basic-addon1">Quantity</span>
+		<h:inputText styleClass="form-control" value="#{productController.quantity}"	id = "quantity"
 			required = "true"
 			requiredMessage = "Quantity is mandatory"
 			converterMessage= "Quantity must be a integer">
 		</h:inputText>
-		<h:message for = "quantity" styleClass = "error" />
 	</div>
-	<div> Description 
-		<h:inputTextarea value="#{productController.description}"
-			required="false" cols="20" rows="5" />
+	<h3><small>Description</small></h3>
+	<h:inputTextarea styleClass="form-control" value="#{productController.description}" required="false" cols="20" rows="5" />
+	<h3><small>Providers</small></h3>
+	<h:selectManyListbox style="width:100%" size="5" value="#{productController.selectedProvidersVatin}" id="providers"
+		required="true"
+		requiredMessage="Select at least one provider">
+		<f:selectItems value="#{providerController.providers}" var="provider"
+			itemValue="#{provider.vatin}" itemLabel="#{provider.name}"/>
+	</h:selectManyListbox>
+	<div class="box">
+		<h:commandButton styleClass="btn btn-success"
+						 value="Register" 
+						 action="#{productController.registerProduct}" />
 	</div>
-	<div> Providers 
-		<h:selectManyListbox size="5" value="#{productController.selectedProvidersVatin}" id="providers"
-			required="true"
-			requiredMessage="Select at least one provider">
-			<f:selectItems value="#{providerController.providers}" var="provider"
-				itemValue="#{provider.vatin}" itemLabel="#{provider.name}"/>
-		</h:selectManyListbox>
-		<h:message for="providers" styleClass="error"></h:message>
-	</div>
-	<div> <h:commandButton value="Register" action="#{productController.registerProduct}" /></div>
 </h:form>
 </c:if>
 </f:view>

@@ -4,8 +4,11 @@ package com.lolmarket.controllers;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.lolmarket.domain.Product;
 import com.lolmarket.facades.ProductFacade;
@@ -17,8 +20,6 @@ public class ProductController {
 	
 	private final String PRODUCT_REGISTERED = "Product registered!";
 	private final String ERROR_PRODUCT_EXISTS = "The product code provided is already registered";
-	
-	private String message = "";
 	
 	@EJB
 	private ProductFacade productFacade;
@@ -45,9 +46,9 @@ public class ProductController {
 		
 		try {
 			providerFacade.updateProviders(this.selectedProvidersVatin, product);
-			this.message = PRODUCT_REGISTERED;
+			this.sendMessage(FacesMessage.SEVERITY_INFO, "productController", PRODUCT_REGISTERED);
 		} catch (Exception e) {
-			this.message = ERROR_PRODUCT_EXISTS;
+			this.sendMessage(FacesMessage.SEVERITY_ERROR, "productController", ERROR_PRODUCT_EXISTS);
 		}
 		
 		return "";
@@ -106,10 +107,6 @@ public class ProductController {
 		this.description = description;
 	}
 	
-	public String getMessage() {
-		return this.message;
-	}
-
 	public String[] getSelectedProvidersVatin() {
 		return selectedProvidersVatin;
 	}
@@ -126,5 +123,8 @@ public class ProductController {
 		this.providerFacade = providerFacade;
 	}
 	
+	public void sendMessage(Severity severity, String id, String message) {
+		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(severity, message, ""));
+	}
 	
 }
