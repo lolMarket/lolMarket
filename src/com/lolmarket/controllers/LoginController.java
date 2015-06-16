@@ -1,9 +1,11 @@
 package com.lolmarket.controllers;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.lolmarket.domain.users.Admin;
 import com.lolmarket.domain.users.Customer;
@@ -16,8 +18,6 @@ import com.lolmarket.sessions.CustomerSession;
 @RequestScoped
 public class LoginController {
 
-	private String errorDescription = "";
-	
 	private final String LOGIN_PAGE_URL = "Login.xhtml";
 	private final String WRONG_CREDENTIALS = "Wrong email or password";
 	
@@ -49,7 +49,7 @@ public class LoginController {
 				adminSession.setCurrent(admin);
 				nextPage = "AdminHome.xhtml"+"?faces-redirect=true";
 			} catch (Exception e) {
-				this.errorDescription = WRONG_CREDENTIALS;
+				FacesContext.getCurrentInstance().addMessage("login", new FacesMessage(WRONG_CREDENTIALS));
 				nextPage = LOGIN_PAGE_URL;
 			}
 		} else {
@@ -58,7 +58,7 @@ public class LoginController {
 				customerSession.setCurrent(customer);
 				nextPage = "CustomerHome.xhtml"+"?faces-redirect=true";
 			} catch (Exception e) {
-				this.errorDescription = WRONG_CREDENTIALS;
+				FacesContext.getCurrentInstance().addMessage("login", new FacesMessage(WRONG_CREDENTIALS));
 				nextPage = LOGIN_PAGE_URL;
 			}
 		}
@@ -108,10 +108,6 @@ public class LoginController {
 		this.isAdmin = isAdmin;
 	}
 	
-	public String getErrorDescription() {
-		return this.errorDescription;
-	}
-
 	public void setCustomerSession(CustomerSession session) {
 		this.customerSession = session;
 	}

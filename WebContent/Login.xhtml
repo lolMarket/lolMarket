@@ -22,27 +22,28 @@
 	<div class="page-header">
       	<h1>Login</h1>
     </div>
-	<div>
-		<h:outputText value="${loginController.errorDescription}"/>
-		<br />
-		<br />
-	</div>
+
 <h:form>
-	<div> Email 
-		<h:inputText styleClass="form-control" value="#{loginController.email}"	id = "email"
-			required = "true"
-			requiredMessage = "Email is mandatory"
-			validatorMessage="Wrong email format">
-			<f:validateRegex pattern="[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}"/>
-		</h:inputText>
-		<h:message for = "email" styleClass = "error" />
-	</div>
-	<div> Password 
-		<h:inputSecret styleClass="form-control"  value="#{loginController.password}" id = "password" 
-			required = "true"
-			requiredMessage = "Password is mandatory"/> 
-		<h:message for = "password" styleClass = "error" />
-	</div>
+		<h:messages styleClass="alert alert-danger" />
+		
+		<div class="input-group input-group-lg" >
+			<span class="input-group-addon glyphicon glyphicon-envelope" id="sizing-addon1" />
+			<h:inputText styleClass="form-control"  value="#{loginController.email}"	id = "email"
+				required = "true"
+				requiredMessage = "Email is mandatory"
+				validatorMessage="Wrong email format">
+				<f:validateRegex pattern="[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}"/>
+			</h:inputText>
+		</div>
+		<div>	
+		</div>
+		<div class="input-group input-group-lg">
+			<span class="input-group-addon glyphicon glyphicon-lock" id="sizing-addon1" />
+			<h:inputSecret styleClass="form-control" value="#{loginController.password}" id = "password" 
+				required = "true"
+				requiredMessage = "Password is mandatory"/> 
+		</div>
+		
 	<hr />
 	<h:selectBooleanCheckbox value="#{loginController.isAdmin}" /> I'm an Admin<br/>
 	<div>
