@@ -1,9 +1,12 @@
 package com.lolmarket.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -28,7 +31,10 @@ public class Product {
 	private int quantity;
 	
 	@Column(nullable = true, length = 2000)
-	private String description; //da gestire cosi' o con una ProductDescription?
+	private String description;
+	
+	@ManyToMany(mappedBy = "products")
+	private List<Provider> providers;
 	
 	
 	public Product() {}
@@ -98,6 +104,14 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Provider> getProviders() {
+		return providers;
+	}
+
+	public void setProviders(List<Provider> providers) {
+		this.providers = providers;
 	}
 	
 }

@@ -9,6 +9,7 @@ import javax.faces.bean.RequestScoped;
 
 import com.lolmarket.domain.Product;
 import com.lolmarket.facades.ProductFacade;
+import com.lolmarket.facades.ProviderFacade;
 
 @ManagedBean(name = "productController")
 @RequestScoped
@@ -22,13 +23,16 @@ public class ProductController {
 	@EJB
 	private ProductFacade productFacade;
 	
+	@EJB
+	private ProviderFacade providerFacade;
+	
 	private String code;
 	private String name;
 	private Float price;
 	private int quantity;
 	private String description;
 	private List<Product> productCatalog;
-
+	private String[] selectedProvidersVatin;
 	
 	public ProductController () {}
 	
@@ -40,7 +44,7 @@ public class ProductController {
 		product.setDescription(this.description);
 		
 		try {
-			productFacade.registerProduct(product);
+			providerFacade.updateProviders(this.selectedProvidersVatin, product);
 			this.message = PRODUCT_REGISTERED;
 		} catch (Exception e) {
 			this.message = ERROR_PRODUCT_EXISTS;
@@ -105,4 +109,22 @@ public class ProductController {
 	public String getMessage() {
 		return this.message;
 	}
+
+	public String[] getSelectedProvidersVatin() {
+		return selectedProvidersVatin;
+	}
+
+	public void setSelectedProvidersVatin(String[] selectedProvidersVatin) {
+		this.selectedProvidersVatin = selectedProvidersVatin;
+	}
+
+	public ProviderFacade getProviderFacade() {
+		return providerFacade;
+	}
+
+	public void setProviderFacade(ProviderFacade providerFacade) {
+		this.providerFacade = providerFacade;
+	}
+	
+	
 }

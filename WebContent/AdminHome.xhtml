@@ -9,10 +9,17 @@
 <f:view>
 	<c:if test="${admin.current ne null}">
 		Welcome ${admin.current.email}
-		<h:form>
-			<h:commandLink action="#{loginController.adminLogout}">Logout</h:commandLink> <br />
-			<a href="AdminOrders.xhtml">Orders to be processed</a>
-		</h:form>
+
+		<ul>
+			<li><a href="ProductRegistration.xhtml">Insert a new product</a></li>
+			<li><a href="ProviderRegistration.xhtml">Register a new provider</a></li>
+			<li><a href="AdminOrders.xhtml">Orders to be processed</a></li>
+			<li>
+				<h:form>
+					<h:commandLink action="#{loginController.adminLogout}">logout</h:commandLink>
+				</h:form>
+			</li>
+		</ul>
 	</c:if>
 </f:view>
 </h:body>
