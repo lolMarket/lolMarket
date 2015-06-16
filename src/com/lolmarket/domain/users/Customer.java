@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,7 +20,10 @@ import com.lolmarket.domain.Order;
 
 @Entity
 @Table(name = "lm_customer")
-@NamedQuery(name = "getCustomer", query = "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :pass")
+@NamedQueries({
+	@NamedQuery(name = "getCustomer", query = "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :pass"),
+	@NamedQuery(name = "getCustomerById", query = "SELECT c FROM Customer c WHERE c.email = :email")
+})
 public class Customer {
 	@Id
 	private String email;

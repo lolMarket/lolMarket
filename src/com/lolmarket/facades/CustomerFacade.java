@@ -17,6 +17,13 @@ public class CustomerFacade {
 		entityManager.persist(customer);
 	}
 	
+	public Customer getCustomer(String email) {
+		Query getCustomerQuery = entityManager.createNamedQuery("getCustomerById");
+		getCustomerQuery.setParameter("email", email);
+		Customer customer = (Customer) getCustomerQuery.getSingleResult();
+		return customer;
+	}
+	
 	public Customer getCustomer(String email, String password) {
 		Query getCustomerQuery = entityManager.createNamedQuery("getCustomer");
 		getCustomerQuery.setParameter("email", email);

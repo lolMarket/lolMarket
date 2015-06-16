@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Customer Details</title>
+</h:head>
+<h:body>
+<f:view>
+	<h1>Customer Details</h1>
+	<div>
+		<ul>
+			<li>First Name: ${customerController.getCustomer(param.id).firstName}</li>
+			<li>Last Name: ${customerController.getCustomer(param.id).lastName}</li>
+			<li>Email: ${customerController.getCustomer(param.id).email}</li>
+			<li>Birth Date: ${customerController.getCustomer(param.id).birthDate}</li>
+			<li>Registration Date: ${customerController.getCustomer(param.id).registrationDate}</li>
+			<li>Address: ${customerController.getCustomer(param.id).address}</li>
+		</ul>
+	</div>
+</f:view>
+</h:body>
+</html>
