@@ -8,17 +8,57 @@
 </h:head>
 <h:body>
 <f:view>
-	<h1>Customer Details</h1>
-	<div>
-		<ul>
-			<li>First Name: ${customerController.getCustomer(param.id).firstName}</li>
-			<li>Last Name: ${customerController.getCustomer(param.id).lastName}</li>
-			<li>Email: ${customerController.getCustomer(param.id).email}</li>
-			<li>Birth Date: ${customerController.getCustomer(param.id).birthDate}</li>
-			<li>Registration Date: ${customerController.getCustomer(param.id).registrationDate}</li>
-			<li>Address: ${customerController.getCustomer(param.id).address}</li>
-		</ul>
-	</div>
+ <c:if test="${admin.current ne null}"> 
+	<ui:include src="adminNavbar.xhtml" />
+	
+	<c:set var="customer" value="#{customerController.getCustomer(param.id)}" scope="request" />
+	
+	<div class="page-header">
+			<h3>
+			First Name <br/>
+			<small>
+				<h:outputText value="${customer.firstName}  
+									 ${customer.lastName}"></h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Email <br/>
+			<small>
+				<h:outputText value="${customer.email}"></h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Birth Date <br/>
+			<small>
+				<h:outputText value="${customer.birthDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Registration Date <br/>
+			<small>
+				<h:outputText value="${customer.registrationDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Address <br/>
+			<small>
+				<h:outputText value="${customer.address}"/>
+			</small>
+			</h3>
+		</div>
+</c:if>
 </f:view>
 </h:body>
 </html>

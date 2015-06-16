@@ -45,7 +45,7 @@
 				<f:facet name="header">
 					<h:outputText value="Customer" />
 				</f:facet>
-				<h:outputText value="${order.customer}" />
+				<a href="CustomerDetails.xhtml?id=${order.customer.email}">${order.customer.email}</a>
 			</h:column>	
 			<h:column>
 				<f:facet name="header">
