@@ -10,6 +10,51 @@
 <f:view>
 	<c:if test="${customer.current ne null}">
 		<ui:include src="customerNavbar.xhtml" />
+		<div class="page-header">
+			<h3>
+			First Name <br/>
+			<small>
+				<h:outputText value="${customer.current.firstName}  
+									 ${customer.current.lastName}"></h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Email <br/>
+			<small>
+				<h:outputText value="${customer.current.email}"></h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Birth Date <br/>
+			<small>
+				<h:outputText value="${customer.current.birthDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Registration Date <br/>
+			<small>
+				<h:outputText value="${customer.current.registrationDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</small>
+			</h3>
+		</div>
+		<div class="page-header">
+			<h3>
+			Address <br/>
+			<small>
+				<h:outputText value="${customer.current.address}"/>
+			</small>
+			</h3>
+		</div>
 	</c:if>
 </f:view>
 </h:body>
