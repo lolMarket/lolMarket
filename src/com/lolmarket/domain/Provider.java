@@ -35,7 +35,7 @@ public class Provider {
 	@Column(nullable = true)
 	private String email;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Product> products;
 	
 	public Provider() {}
