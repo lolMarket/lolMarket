@@ -4,8 +4,11 @@ package com.lolmarket.controllers;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.lolmarket.domain.Provider;
 import com.lolmarket.facades.ProviderFacade;
@@ -41,9 +44,9 @@ public class ProviderController {
 		
 		try {
 			providerFacade.registerProvider(provider);
-			this.message = PROVIDER_REGISTERED;
+			this.sendMessage(FacesMessage.SEVERITY_INFO, "providerController", PROVIDER_REGISTERED);
 		} catch (Exception e) {
-			this.message = ERROR_PROVIDER_EXISTS;
+			this.sendMessage(FacesMessage.SEVERITY_INFO, "providerController", ERROR_PROVIDER_EXISTS);
 		}
 		
 		return "";
@@ -106,4 +109,7 @@ public class ProviderController {
 		return this.message;
 	}
 	
+	public void sendMessage(Severity severity, String id, String message) {
+		FacesContext.getCurrentInstance().addMessage(id, new FacesMessage(severity, message, ""));
+	}
 }
