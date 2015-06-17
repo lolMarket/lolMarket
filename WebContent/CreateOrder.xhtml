@@ -57,6 +57,7 @@
 			</h:column>
 		</h:dataTable>
 	</div>
+	<h:panelGroup rendered="${createOrderController.order ne null}"> 
 	<div style="display:inline-block; vertical-align: top; margin-left: 5%">
 	<h2>Actual Order</h2>
 	<h3>Total: ${createOrderController.order.total} €</h3>
@@ -81,6 +82,7 @@
 		</h:column>
 	</h:dataTable>
 	</div>
+	</h:panelGroup>
 	</div>
 </c:if>
 </f:view>
