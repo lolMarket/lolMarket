@@ -1,0 +1,419 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.2
+-- Dumped by pg_dump version 9.4.2
+-- Started on 2015-06-17 12:42:19 CEST
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 2055 (class 1262 OID 16914)
+-- Name: lolMarket; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "lolMarket" WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'it_IT.UTF-8' LC_CTYPE = 'it_IT.UTF-8';
+
+
+ALTER DATABASE "lolMarket" OWNER TO postgres;
+
+\connect "lolMarket"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 180 (class 3079 OID 11860)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2058 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 172 (class 1259 OID 17241)
+-- Name: lm_admin; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lm_admin (
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL
+);
+
+
+ALTER TABLE lm_admin OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 17551)
+-- Name: lm_customer; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lm_customer (
+    email character varying(255) NOT NULL,
+    address character varying(255) NOT NULL,
+    birthdate date NOT NULL,
+    firstname character varying(255) NOT NULL,
+    lastname character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    registrationdate timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE lm_customer OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 17559)
+-- Name: lm_order; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lm_order (
+    id bigint NOT NULL,
+    closingdate timestamp without time zone,
+    evasiondate timestamp without time zone,
+    openingdate timestamp without time zone NOT NULL,
+    total real NOT NULL,
+    customer_email character varying(255) NOT NULL
+);
+
+
+ALTER TABLE lm_order OWNER TO postgres;
+
+--
+-- TOC entry 175 (class 1259 OID 17564)
+-- Name: lm_order_line; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lm_order_line (
+    id bigint NOT NULL,
+    price real NOT NULL,
+    quantity integer NOT NULL,
+    lm_order_id bigint,
+    product_code character varying(255) NOT NULL
+);
+
+
+ALTER TABLE lm_order_line OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 17569)
+-- Name: lm_product; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lm_product (
+    code character varying(255) NOT NULL,
+    description character varying(2000),
+    name character varying(255) NOT NULL,
+    price real NOT NULL,
+    quantity integer NOT NULL
+);
+
+
+ALTER TABLE lm_product OWNER TO postgres;
+
+--
+-- TOC entry 177 (class 1259 OID 17577)
+-- Name: lm_provider; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lm_provider (
+    vatin character varying(255) NOT NULL,
+    address character varying(255),
+    email character varying(255),
+    name character varying(255) NOT NULL,
+    phonenumber character varying(255)
+);
+
+
+ALTER TABLE lm_provider OWNER TO postgres;
+
+--
+-- TOC entry 178 (class 1259 OID 17585)
+-- Name: lm_provider_lm_product; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE lm_provider_lm_product (
+    providers_vatin character varying(255),
+    products_code character varying(255)
+);
+
+
+ALTER TABLE lm_provider_lm_product OWNER TO postgres;
+
+--
+-- TOC entry 179 (class 1259 OID 17591)
+-- Name: openjpa_sequence_table; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE openjpa_sequence_table (
+    id smallint NOT NULL,
+    sequence_value bigint
+);
+
+
+ALTER TABLE openjpa_sequence_table OWNER TO postgres;
+
+--
+-- TOC entry 2043 (class 0 OID 17241)
+-- Dependencies: 172
+-- Data for Name: lm_admin; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lm_admin (email, password) FROM stdin;
+admin@admin.com	admin
+\.
+
+
+--
+-- TOC entry 2044 (class 0 OID 17551)
+-- Dependencies: 173
+-- Data for Name: lm_customer; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lm_customer (email, address, birthdate, firstname, lastname, password, registrationdate) FROM stdin;
+mario@rossi.com	Via pinco pallino	1990-01-01	Mario	Rossi	p	2015-06-17 12:26:02.446
+carlo@verde.com	Via ostiense	1990-11-01	Carlo	Verde	p	2015-06-17 12:26:34.363
+\.
+
+
+--
+-- TOC entry 2045 (class 0 OID 17559)
+-- Dependencies: 174
+-- Data for Name: lm_order; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lm_order (id, closingdate, evasiondate, openingdate, total, customer_email) FROM stdin;
+1	2015-06-17 12:33:24.153	\N	2015-06-17 12:33:10.224	3.5	mario@rossi.com
+2	2015-06-17 12:33:35.075	\N	2015-06-17 12:33:26.76	9.5	mario@rossi.com
+3	2015-06-17 12:33:42.712	\N	2015-06-17 12:33:37.559	7.5	mario@rossi.com
+4	2015-06-17 12:34:10.473	\N	2015-06-17 12:34:00.673	3.5	carlo@verde.com
+5	2015-06-17 12:34:18.546	\N	2015-06-17 12:34:12.658	5.5	carlo@verde.com
+6	2015-06-17 12:34:31.257	\N	2015-06-17 12:34:21.856	21	carlo@verde.com
+\.
+
+
+--
+-- TOC entry 2046 (class 0 OID 17564)
+-- Dependencies: 175
+-- Data for Name: lm_order_line; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lm_order_line (id, price, quantity, lm_order_id, product_code) FROM stdin;
+53	1	1	1	P01
+54	2.5	1	1	P02
+55	5	2	2	P02
+56	4.5	3	2	P03
+57	7	2	3	P05
+58	0.5	1	3	P04
+61	1	1	4	P01
+62	2.5	1	4	P02
+63	1	2	5	P04
+64	4.5	3	5	P03
+65	21	14	6	P03
+\.
+
+
+--
+-- TOC entry 2047 (class 0 OID 17569)
+-- Dependencies: 176
+-- Data for Name: lm_product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lm_product (code, description, name, price, quantity) FROM stdin;
+P01	a bottle of sprite	Sprite	1	1
+P02	a bottle of lolFruits	lolFruits	2.5	10
+P03	a bottle of Brasilena	Brasilena	1.5	6
+P04	a bottle of lolCola	lolCola	0.5	4
+P05	a bottle of Wine	Wine	3.5	5
+\.
+
+
+--
+-- TOC entry 2048 (class 0 OID 17577)
+-- Dependencies: 177
+-- Data for Name: lm_provider; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lm_provider (vatin, address, email, name, phonenumber) FROM stdin;
+aaabbbccc	via fornitori	lolfornitore@fornitore.com	lolFornitore	3332255000
+dddeeefff	via fornitori	loldistributions@fornitore.com	lolDistributions	444555777
+\.
+
+
+--
+-- TOC entry 2049 (class 0 OID 17585)
+-- Dependencies: 178
+-- Data for Name: lm_provider_lm_product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY lm_provider_lm_product (providers_vatin, products_code) FROM stdin;
+aaabbbccc	P01
+aaabbbccc	P02
+dddeeefff	P02
+dddeeefff	P03
+dddeeefff	P04
+aaabbbccc	P05
+\.
+
+
+--
+-- TOC entry 2050 (class 0 OID 17591)
+-- Dependencies: 179
+-- Data for Name: openjpa_sequence_table; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY openjpa_sequence_table (id, sequence_value) FROM stdin;
+0	101
+\.
+
+
+--
+-- TOC entry 1916 (class 2606 OID 17248)
+-- Name: lm_admin_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY lm_admin
+    ADD CONSTRAINT lm_admin_pkey PRIMARY KEY (email);
+
+
+--
+-- TOC entry 1918 (class 2606 OID 17558)
+-- Name: lm_customer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY lm_customer
+    ADD CONSTRAINT lm_customer_pkey PRIMARY KEY (email);
+
+
+--
+-- TOC entry 1922 (class 2606 OID 17568)
+-- Name: lm_order_line_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY lm_order_line
+    ADD CONSTRAINT lm_order_line_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1920 (class 2606 OID 17563)
+-- Name: lm_order_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY lm_order
+    ADD CONSTRAINT lm_order_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1924 (class 2606 OID 17576)
+-- Name: lm_product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY lm_product
+    ADD CONSTRAINT lm_product_pkey PRIMARY KEY (code);
+
+
+--
+-- TOC entry 1926 (class 2606 OID 17584)
+-- Name: lm_provider_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY lm_provider
+    ADD CONSTRAINT lm_provider_pkey PRIMARY KEY (vatin);
+
+
+--
+-- TOC entry 1928 (class 2606 OID 17595)
+-- Name: openjpa_sequence_table_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY openjpa_sequence_table
+    ADD CONSTRAINT openjpa_sequence_table_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1929 (class 2606 OID 17596)
+-- Name: lm_order_customer_email_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY lm_order
+    ADD CONSTRAINT lm_order_customer_email_fkey FOREIGN KEY (customer_email) REFERENCES lm_customer(email) DEFERRABLE;
+
+
+--
+-- TOC entry 1930 (class 2606 OID 17601)
+-- Name: lm_order_line_lm_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY lm_order_line
+    ADD CONSTRAINT lm_order_line_lm_order_id_fkey FOREIGN KEY (lm_order_id) REFERENCES lm_order(id) DEFERRABLE;
+
+
+--
+-- TOC entry 1931 (class 2606 OID 17606)
+-- Name: lm_order_line_product_code_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY lm_order_line
+    ADD CONSTRAINT lm_order_line_product_code_fkey FOREIGN KEY (product_code) REFERENCES lm_product(code) DEFERRABLE;
+
+
+--
+-- TOC entry 1933 (class 2606 OID 17616)
+-- Name: lm_provider_lm_product_products_code_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY lm_provider_lm_product
+    ADD CONSTRAINT lm_provider_lm_product_products_code_fkey FOREIGN KEY (products_code) REFERENCES lm_product(code) DEFERRABLE;
+
+
+--
+-- TOC entry 1932 (class 2606 OID 17611)
+-- Name: lm_provider_lm_product_providers_vatin_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY lm_provider_lm_product
+    ADD CONSTRAINT lm_provider_lm_product_providers_vatin_fkey FOREIGN KEY (providers_vatin) REFERENCES lm_provider(vatin) DEFERRABLE;
+
+
+--
+-- TOC entry 2057 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2015-06-17 12:42:19 CEST
+
+--
+-- PostgreSQL database dump complete
+--
+
