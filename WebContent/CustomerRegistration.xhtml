@@ -9,17 +9,13 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Customer Registration</title>
-	<style type="text/css">
-		.box {
-			margin: 5px;
-		}
-	</style>
 </h:head>
 
 <h:body>
 <f:view>
 
 <ui:include src="navbar.xhtml" />
+<div class="content-middle">
 <h:form>
 	<h:messages styleClass="alert" infoClass="alert alert-info" errorClass="alert alert-danger" />
 	<div class="box input-group">
@@ -75,6 +71,7 @@
 						   styleClass="btn btn-success" 
 						   action="#{registrationController.registerCustomer}" /></div>
 </h:form> 		
+</div>
 </f:view>
 </h:body>
 </html>

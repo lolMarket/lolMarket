@@ -8,17 +8,12 @@
 	<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
 
 	<title>Create Order</title>
-	<style type="text/css">
-		.box {
-			margin: 5px;
-		}
-	</style>
 </h:head>
 <h:body>
 <f:view>
 <c:if test="${customer.current ne null}"> 
 	<ui:include src="customerNavbar.xhtml"/>
-	
+	<div class="content">	
 	<h:form>
 		<h:commandButton value="new"  action="#{createOrderController.createNewOrder}" styleClass="box btn btn-primary" /> 
 		<h:commandButton value="save"  rendered = "#{createOrderController.order ne null}"  action="#{createOrderController.saveOrder}" styleClass="box btn btn-success" /> 
@@ -86,9 +81,8 @@
 		</h:column>
 	</h:dataTable>
 	</div>
+	</div>
 </c:if>
-
-	
 </f:view>
 </h:body>
 </html>

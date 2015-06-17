@@ -13,7 +13,7 @@
 <f:view>
 <c:if test="${customer.current ne null}"> 
 	<ui:include src="customerNavbar.xhtml"/>
-	
+	<div class="content">	
 	<div style="page-header">
 		<h1> Order #${param.id} details</h1>
 	</div>
@@ -40,6 +40,7 @@
 			<h:outputText value="${orderLine.price} €" />
 		</h:column>
 	</h:dataTable>
+	</div>
 </c:if> 
 </f:view>
 </h:body>

@@ -21,33 +21,35 @@
 <h:body style="padding-top: 50px"> 
 <f:view>
 	<ui:include src="navbar.xhtml" />
-<h:form>
-		<h:messages styleClass="alert alert-danger" />
-		
-		<div class="input-group input-group-lg" >
-			<span class="input-group-addon glyphicon glyphicon-envelope" id="sizing-addon1" />
-			<h:inputText styleClass="form-control"  value="#{loginController.email}"	id = "email"
-				required = "true"
-				requiredMessage = "Email is mandatory"
-				validatorMessage="Wrong email format">
-				<f:validateRegex pattern="[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}"/>
-			</h:inputText>
+	<div class="content-middle">
+		<h:form>
+			<h:messages styleClass="alert alert-danger" />
+			
+			<div class="input-group input-group-lg" >
+				<span class="input-group-addon glyphicon glyphicon-envelope" id="sizing-addon1" />
+				<h:inputText styleClass="form-control"  value="#{loginController.email}"	id = "email"
+					required = "true"
+					requiredMessage = "Email is mandatory"
+					validatorMessage="Wrong email format">
+					<f:validateRegex pattern="[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}"/>
+				</h:inputText>
+			</div>
+			<div>	
+			</div>
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon glyphicon glyphicon-lock" id="sizing-addon1" />
+				<h:inputSecret styleClass="form-control" value="#{loginController.password}" id = "password" 
+					required = "true"
+					requiredMessage = "Password is mandatory"/> 
+			</div>
+			
+		<hr />
+		<h:selectBooleanCheckbox value="#{loginController.isAdmin}" /> I'm an Admin<br/>
+		<div>
+			<h:commandButton value="Login" styleClass="btn btn-success" action="#{loginController.login}" />
 		</div>
-		<div>	
-		</div>
-		<div class="input-group input-group-lg">
-			<span class="input-group-addon glyphicon glyphicon-lock" id="sizing-addon1" />
-			<h:inputSecret styleClass="form-control" value="#{loginController.password}" id = "password" 
-				required = "true"
-				requiredMessage = "Password is mandatory"/> 
-		</div>
-		
-	<hr />
-	<h:selectBooleanCheckbox value="#{loginController.isAdmin}" /> I'm an Admin<br/>
-	<div>
-		<h:commandButton value="Login" styleClass="btn btn-success" action="#{loginController.login}" />
+		</h:form> 		
 	</div>
-</h:form> 		
 </f:view>
 </h:body>
 </html>

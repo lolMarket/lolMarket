@@ -7,66 +7,63 @@
 	<meta charset="utf-8"/>
 	<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
 	<title>Product Registration</title>
-	<style type="text/css">
-		.box {
-			margin: 5px;
-		}
-	</style>
 </h:head>
 <h:body>
 <f:view>
 <c:if test="${admin.current ne null}">
 <ui:include src="adminNavbar.xhtml"/>
 
-	<h:form>
-	<h:messages styleClass="alert" infoClass="alert alert-info" errorClass="alert alert-danger" />
-	<div class="box input-group">
-  		<span class="input-group-addon" id="basic-addon1">Code</span>
-		<h:inputText styleClass="form-control" value="#{productController.code}"	 id = "code"
-			required = "true"
-            requiredMessage = "Code is mandatory"
-            validatorMessage = "Codes must be alphanumeric">
-			<f:validateRegex pattern="[a-zA-Z0-9]+" />
-		</h:inputText>
+	<div class="content-middle">
+		<h:form>
+		<h:messages styleClass="alert" infoClass="alert alert-info" errorClass="alert alert-danger" />
+		<div class="box input-group">
+	  		<span class="input-group-addon" id="basic-addon1">Code</span>
+			<h:inputText styleClass="form-control" value="#{productController.code}"	 id = "code"
+				required = "true"
+	            requiredMessage = "Code is mandatory"
+	            validatorMessage = "Codes must be alphanumeric">
+				<f:validateRegex pattern="[a-zA-Z0-9]+" />
+			</h:inputText>
+		</div>
+		<div class="box input-group">
+	  		<span class="input-group-addon" id="basic-addon1">Name</span>
+			<h:inputText styleClass="form-control" value="#{productController.name}" id = "name" required = "true"
+	            requiredMessage = "Name is mandatory"
+	            validatorMessage = "Names must contain letters" >
+					<f:validateRegex pattern="[a-z A-Z]+"/>
+			</h:inputText>
+		</div>
+		<div class="box input-group">
+	  		<span class="input-group-addon" id="basic-addon1">Price</span>
+			<h:inputText styleClass="form-control" value="#{productController.price}" id = "price"	required = "true"
+				requiredMessage = "Price is mandatory"
+				converterMessage = "Price must be a number">
+			</h:inputText>
+		</div>
+		<div class="box input-group">
+	  		<span class="input-group-addon" id="basic-addon1">Quantity</span>
+			<h:inputText styleClass="form-control" value="#{productController.quantity}"	id = "quantity"
+				required = "true"
+				requiredMessage = "Quantity is mandatory"
+				converterMessage= "Quantity must be a integer">
+			</h:inputText>
+		</div>
+		<h3><small>Description</small></h3>
+		<h:inputTextarea styleClass="form-control" value="#{productController.description}" required="false" cols="20" rows="5" />
+		<h3><small>Providers</small></h3>
+		<h:selectManyListbox style="width:100%" size="5" value="#{productController.selectedProvidersVatin}" id="providers"
+			required="true"
+			requiredMessage="Select at least one provider">
+			<f:selectItems value="#{providerController.providers}" var="provider"
+				itemValue="#{provider.vatin}" itemLabel="#{provider.name}"/>
+		</h:selectManyListbox>
+		<div class="box">
+			<h:commandButton styleClass="btn btn-success"
+							 value="Register" 
+							 action="#{productController.registerProduct}" />
+		</div>
+		</h:form>
 	</div>
-	<div class="box input-group">
-  		<span class="input-group-addon" id="basic-addon1">Name</span>
-		<h:inputText styleClass="form-control" value="#{productController.name}" id = "name" required = "true"
-            requiredMessage = "Name is mandatory"
-            validatorMessage = "Names must contain letters" >
-				<f:validateRegex pattern="[a-z A-Z]+"/>
-		</h:inputText>
-	</div>
-	<div class="box input-group">
-  		<span class="input-group-addon" id="basic-addon1">Price</span>
-		<h:inputText styleClass="form-control" value="#{productController.price}" id = "price"	required = "true"
-			requiredMessage = "Price is mandatory"
-			converterMessage = "Price must be a number">
-		</h:inputText>
-	</div>
-	<div class="box input-group">
-  		<span class="input-group-addon" id="basic-addon1">Quantity</span>
-		<h:inputText styleClass="form-control" value="#{productController.quantity}"	id = "quantity"
-			required = "true"
-			requiredMessage = "Quantity is mandatory"
-			converterMessage= "Quantity must be a integer">
-		</h:inputText>
-	</div>
-	<h3><small>Description</small></h3>
-	<h:inputTextarea styleClass="form-control" value="#{productController.description}" required="false" cols="20" rows="5" />
-	<h3><small>Providers</small></h3>
-	<h:selectManyListbox style="width:100%" size="5" value="#{productController.selectedProvidersVatin}" id="providers"
-		required="true"
-		requiredMessage="Select at least one provider">
-		<f:selectItems value="#{providerController.providers}" var="provider"
-			itemValue="#{provider.vatin}" itemLabel="#{provider.name}"/>
-	</h:selectManyListbox>
-	<div class="box">
-		<h:commandButton styleClass="btn btn-success"
-						 value="Register" 
-						 action="#{productController.registerProduct}" />
-	</div>
-</h:form>
 </c:if>
 </f:view>
 </h:body>

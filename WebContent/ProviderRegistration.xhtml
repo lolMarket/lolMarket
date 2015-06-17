@@ -8,66 +8,63 @@
 	<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
 	<title>Provider Registration</title>
 
-<style type="text/css">
-	.box {
-		margin: 5px;
-	}
-</style>
 </h:head>
 <h:body>
 <f:view>
 	<c:if test="${admin.current ne null}"> 
 		<ui:include src="adminNavbar.xhtml"/>
-		<h:form>
-			<h:messages styleClass="alert" infoClass="alert alert-info" errorClass="alert alert-danger" />
-			<div class="box input-group">
-		  		<span class="input-group-addon" id="basic-addon1">Vatin</span>
-				<h:inputText styleClass="form-control" value="#{providerController.vatin}"	 id = "vatin"
-					required = "true"
-		            requiredMessage = "VATIN is mandatory"
-		            validatorMessage = "VATIN must be alphanumeric">
-					<f:validateRegex pattern="[a-zA-Z0-9]+"/>
-				</h:inputText>
-			</div>
-			<div class="box input-group">
-		  		<span class="input-group-addon" id="basic-addon1">Name</span>
-				<h:inputText styleClass="form-control" value="#{providerController.name}"	 id = "name"
-					required = "true"
-		            requiredMessage = "Name is mandatory"
-		            validatorMessage = "Name must contain letters">
-					<f:validateRegex pattern="[a-z A-Z0-9]+"/>
-				</h:inputText>
-			</div>
-			<div class="box input-group">
-		  		<span class="input-group-addon" id="basic-addon1">Address</span>
-				<h:inputText styleClass="form-control" value="#{providerController.address}" id = "address"
-					required = "false"
-					validatorMessage = "Address must contain letters and numbers">
-					<f:validateRegex pattern="[a-z A-Z0-9]*"></f:validateRegex>
-				</h:inputText>
-			</div>
-			<div class="box input-group">
-		  		<span class="input-group-addon" id="basic-addon1">Phone</span>
-					<h:inputText styleClass="form-control" value="#{providerController.phoneNumber}"	id = "phoneNumber"
-					required = "false"
-					validatorMessage="Phone Number must contain only digits">
-					<f:validateRegex pattern="[+0-9]*"></f:validateRegex>
-				</h:inputText>
-			</div>
-			<div class="box input-group">
-		  		<span class="input-group-addon" id="basic-addon1">Email</span>
-					<h:inputText styleClass="form-control" value="#{providerController.email}"	id = "email"
-					required = "false"
-					validatorMessage="Wrong email format">
-					<f:validateRegex pattern="([-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4})*"/>
-				</h:inputText>
-			</div>
-			<div class="box" >
-				<h:commandButton value="Register" 
-				    			 styleClass="btn btn-success" 
-								 action="#{providerController.registerProvider}" />
-			</div>
-		</h:form>
+		<div class="content-middle">	
+			<h:form>
+				<h:messages styleClass="alert" infoClass="alert alert-info" errorClass="alert alert-danger" />
+				<div class="box input-group">
+			  		<span class="input-group-addon" id="basic-addon1">Vatin</span>
+					<h:inputText styleClass="form-control" value="#{providerController.vatin}"	 id = "vatin"
+						required = "true"
+			            requiredMessage = "VATIN is mandatory"
+			            validatorMessage = "VATIN must be alphanumeric">
+						<f:validateRegex pattern="[a-zA-Z0-9]+"/>
+					</h:inputText>
+				</div>
+				<div class="box input-group">
+			  		<span class="input-group-addon" id="basic-addon1">Name</span>
+					<h:inputText styleClass="form-control" value="#{providerController.name}"	 id = "name"
+						required = "true"
+			            requiredMessage = "Name is mandatory"
+			            validatorMessage = "Name must contain letters">
+						<f:validateRegex pattern="[a-z A-Z0-9]+"/>
+					</h:inputText>
+				</div>
+				<div class="box input-group">
+			  		<span class="input-group-addon" id="basic-addon1">Address</span>
+					<h:inputText styleClass="form-control" value="#{providerController.address}" id = "address"
+						required = "false"
+						validatorMessage = "Address must contain letters and numbers">
+						<f:validateRegex pattern="[a-z A-Z0-9]*"></f:validateRegex>
+					</h:inputText>
+				</div>
+				<div class="box input-group">
+			  		<span class="input-group-addon" id="basic-addon1">Phone</span>
+						<h:inputText styleClass="form-control" value="#{providerController.phoneNumber}"	id = "phoneNumber"
+						required = "false"
+						validatorMessage="Phone Number must contain only digits">
+						<f:validateRegex pattern="[+0-9]*"></f:validateRegex>
+					</h:inputText>
+				</div>
+				<div class="box input-group">
+			  		<span class="input-group-addon" id="basic-addon1">Email</span>
+						<h:inputText styleClass="form-control" value="#{providerController.email}"	id = "email"
+						required = "false"
+						validatorMessage="Wrong email format">
+						<f:validateRegex pattern="([-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4})*"/>
+					</h:inputText>
+				</div>
+				<div class="box" >
+					<h:commandButton value="Register" 
+					    			 styleClass="btn btn-success" 
+									 action="#{providerController.registerProvider}" />
+				</div>
+			</h:form>
+		</div>
 	</c:if>
 </f:view>
 </h:body>

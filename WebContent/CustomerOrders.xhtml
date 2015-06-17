@@ -12,7 +12,7 @@
 <h:body>
 <f:view>
 <c:if test="${customer.current ne null}"> 
-
+	<div class="content">
 	<ui:include src="customerNavbar.xhtml" />
 	
     <h:dataTable value="${customer.current.orders}" var="order" styleClass="table table-striped table-bordered">
@@ -60,7 +60,7 @@
 			</h:form>
 		</h:column>
 	</h:dataTable>
-	
+	</div>
 </c:if> 
 </f:view>
 </h:body>

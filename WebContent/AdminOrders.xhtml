@@ -14,6 +14,8 @@
  <c:if test="${admin.current ne null}"> 
 
 	<ui:include src="adminNavbar.xhtml"/>
+	
+	<div class="content">
 	<h:messages styleClass="alert" errorClass="alert alert-danger" infoClass="alert alert-info"/>
 		<h:dataTable value="${orderController.ordersToProcess}" var="order" styleClass="table table-striped table-bordered">
 			<h:column>
@@ -60,6 +62,7 @@
 				</h:form>
 			</h:column>
 		</h:dataTable>
+		</div>
 </c:if>
 </f:view>
 </h:body>
