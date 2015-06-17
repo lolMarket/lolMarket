@@ -1,0 +1,90 @@
+#Specifiche dei casi d'uso
+
+###Caso d'uso UC1: consulta listino
+* Attore primario: utente (occasionale o registrato)
+* Scenario principale di successo:
+  1. L'utente consulta il catalogo dei prodotti
+  2. Ogni riga mostra i dettagli di un prodotto
+* Precondizioni: nessuna
+
+###Caso d'uso UC2: effettua ordine
+* Attore primario: utente registrato
+* Scenario principale di successo:
+  1. L'utente crea un ordine
+  2. L'utente consulta il catalogo dei prodotti
+  3. L'utente aggiunge o rimuove un'unità di un prodotto
+  4. Il sistema registra o aggiorna la riga d'ordine
+  5. Il sistema mostra i dettagli dell'ordine aggiornato
+  6. L'utente ripete i passi 3, 4 e 5 un numero indefinito di volte
+  7. L'utente salva o chiude l'ordine
+  8. Il sistema crea l'ordine
+* Precondizioni: l'utente è identificato e autenticato
+
+###Caso d'uso UC3: consulta i propri ordini
+* Attore primario: utente registrato
+* Scenario principale di successo:
+  1. L'utente consulta l'elenco dei propri ordini
+  2. Il sistema mostra all'utente l'elenco dei suoi ordini aperti o chiusi
+  3. L'utente chiede i dettagli di un ordine chiuso
+  4. Il sistema mostra i dettagli dell'ordine
+  5. L'utente ripete i passi 3 - 4 un numero indefinito di volte
+* Precondizioni: l'utente è identificato e autenticato
+
+###Caso d'uso UC4: continua ordine aperto
+* Attore primario: utente registrato
+* Scenario principale di successo:
+  1. L'utente consulta l'elenco dei propri ordini
+  2. Il sistema mostra all'utente l'elenco dei suoi ordini aperti o chiusi
+  3. L'utente sceglie un ordine aperto
+  4. Il sistema mostra i dettagli dell'ordine ed il catalogo dei prodotti
+  5. L'utente aggiunge o rimuove un'unità di prodotto
+  6. Il sistema registra o aggiorna la riga d'ordine
+  7. Il sistema mostra i dettagli dell'ordine aggiornato
+  8. L'utente ripete i passi 5, 6 e 7 un numero indefinito di volte
+  9. L'utente salva o chiude l'ordine
+* Precondizioni: l'utente è identificato e autenticato
+
+###Caso d'uso UC5: inserimento prodotti nel catalogo
+* Attore primario: amministratore
+* Scenario principale di successo:
+  1. L'amministratore inserisce un nuovo prodotto nel catalogo specificandone i dettagli ed i fornitori da una lista apposita di fornitori già registrati
+  2. Il sistema registra il prodotto
+  3. L'amministratore ripete i passi 1 e 2 un numero indefinito di volte
+* Precondizioni: l'amministratore è identificato e autenticato
+
+###Caso d'uso UC6: recupero dati cliente
+* Attore primario: amministratore
+* Scenario principale di successo:
+  1. L'amministratore consulta l'elenco degli ordini
+  2. Il sistema mostra l'elenco degli ordini
+  3. L'amministratore fornisce l'id di un cliente che ha effettuato un ordine
+  4. Il sistema mostra i dati del cliente in base all'id fornito
+  5. L'amministratore ripete i passi 3 e 4 un numero indefinito di volte
+* Precondizioni: l'amministratore è identificato e autenticato
+
+###Caso d'uso UC7: evasione ordine
+* Attore primario: amministratore
+* Scenario principale di successo:
+  1. L'amministratore consulta l'elenco degli ordini chiusi ma non evasi
+  2. Il sistema mostra l'elenco degli ordini chiusi ma non evasi
+  3. L'amministratore sceglie un ordine da evadere
+  4. Il sistema aggiorna l'ordine modificando la quantità dei prodotti disponibili
+* Precondizioni: l'amministratore è identificato e autenticato
+* Eccezioni:
+  1. Se nel magazzino non sono presenti prodotti nelle relative quantità specificate nell'ordine esso non viene evaso e rimane in sospeso
+
+###Caso d'uso UC8: registrazione nuovo cliente
+* Attore primario: utente non registrato
+* Scenario principale di successo:
+  1. L'utente fornisce i propri dettagli per l'identificazione
+  2. Il sistema controlla la validità dei dettagli forniti
+  3. Il sistema registra l'utente
+* Precondizioni: nessuna
+
+###Caso d'uso UC9: registrazione nuovo fornitore
+* Attore primario: amministratore
+* Scenario principale di successo:
+  1. L'amministratore fornisce i dettagli di un nuovo fornitore
+  2. Il sistema controlla la validità dei dettagli forniti
+  3. Il sistema registra il fornitore
+* Precondizioni: l'amministratore è identificato e autenticato
