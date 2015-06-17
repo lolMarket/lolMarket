@@ -11,11 +11,10 @@
 </h:head>
 <h:body>
 <f:view>
- <c:if test="${admin.current ne null}"> 
+ <c:if test="${admin.current ne null and not empty param.id}"> 
 	<ui:include src="adminNavbar.xhtml" />
 	
-	<c:set var="customer" value="#{customerController.getCustomer(param.id)}" scope="request" />
-	
+	<c:set var="customer" value="#{customerController.getCustomer(param.id)}"/>
 	<div class="page-header">
 			<h3>
 			First Name <br/>

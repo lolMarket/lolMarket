@@ -18,7 +18,7 @@ import com.lolmarket.sessions.CustomerSession;
 @RequestScoped
 public class LoginController {
 
-	private final String LOGIN_PAGE_URL = "Login.xhtml";
+	private final String LOGIN_PAGE_URL = "Login.xhtml?faces-redirect=true";
 	private final String WRONG_CREDENTIALS = "Wrong email or password";
 	
 	@EJB
